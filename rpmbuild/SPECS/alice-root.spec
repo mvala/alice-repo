@@ -10,8 +10,8 @@
 #%define _unpackaged_files_terminate_build 0
 
 
-Name:           alice-%{package_name}-%{package_ver}
-Version:        0
+Name:           alice-%{package_name}
+Version:        %{package_ver}
 Release:        0%{?dist}
 Summary:        ROOT for ALICE
 Group:          Applications/Engineering
