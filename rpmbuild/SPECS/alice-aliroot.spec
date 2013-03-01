@@ -18,8 +18,8 @@
 %define rootsys_dir %{alice_dir}/root/%{root_ver}
 %define geant3_dir %{alice_dir}/geant3/%{geant3_ver}
 
-Name:		%{alice_name}
-Version:	%{alice_package_version}
+Name:		%{alice_name}-%{alice_package_version}
+Version:	0
 Release:	%{alice_fedora_rev}%{?dist}
 Summary:	AliRoot for ALICE
 Group:		System Environment/Daemons
@@ -32,8 +32,8 @@ BuildRequires:  cmake subversion gcc-gfortran
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  glew-devel
-BuildRequires: alice-root = %{root_ver}
-Requires:  alice-root = %{root_ver}
+BuildRequires: alice-root-%{root_ver}
+Requires:  alice-root-%{root_ver}
 Requires:  alice-environment-modules
 
 # disable automatic lib search
@@ -79,7 +79,7 @@ cp -rf * %{buildroot}%{alice_prefix}
 
 # create module file
 mkdir -p %{buildroot}%{alice_prefix}/etc/modulefiles
-cat > %{buildroot}%{alice_prefix}/etc/modulefiles/%{alice_name}-%{alice_package_version}-%{_arch} <<EOF
+cat > %{buildroot}%{alice_prefix}/etc/modulefiles/%{alice_name}-%{alice_package_version}-%{version} <<EOF
 #%Module 1.0
 # 
 # AliRoot module for use with 'environment-modules' package:
@@ -99,7 +99,7 @@ setenv                  GSHELL_ROOT     %{rootsys_dir}
 EOF
 
 mkdir -p %{buildroot}/etc/modulefiles
-cp %{buildroot}%{alice_prefix}/etc/modulefiles/%{alice_name}-%{alice_package_version}-%{_arch} %{buildroot}/etc/modulefiles/
+cp %{buildroot}%{alice_prefix}/etc/modulefiles/%{alice_name}-%{alice_package_version}-%{version} %{buildroot}/etc/modulefiles/
 
 %clean
 rm -rf %{buildroot}
@@ -107,5 +107,5 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %{alice_prefix}
-/etc/modulefiles/%{alice_name}-%{alice_package_version}-%{_arch}
+/etc/modulefiles/%{alice_name}-%{alice_package_version}-%{version}
 %changelog
