@@ -43,7 +43,7 @@ AutoReqProv: no
 AliRoot for ALICE
 
 %prep
-%setup -q -n %{name}-%{alice_package_version}
+%setup -q -n %{alice_name}-%{alice_package_version}
 
 %build
 export ROOTSYS="%{rootsys_dir}"
