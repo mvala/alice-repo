@@ -4,7 +4,8 @@
 # version
 %define package_name aliroot-an
 
-%define alice_package_version 5.04.35
+%define alice_package_version 5.04.36a
+%define alice_aliroot_post_version 0
 %define	alice_fedora_rev 0
 #deps versions
 %define root_ver 5.34.05
@@ -19,7 +20,7 @@
 %define geant3_dir %{alice_dir}/geant3/%{geant3_ver}
 
 Name:		%{alice_name}-%{alice_package_version}
-Version:	0
+Version:	%{alice_aliroot_post_version}
 Release:	%{alice_fedora_rev}%{?dist}
 Summary:	AliRoot for ALICE
 Group:		System Environment/Daemons
