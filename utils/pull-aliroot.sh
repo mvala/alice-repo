@@ -19,4 +19,4 @@ svn -q export $SVN_PATH1 $SVN_PATH2
 mkdir $SVN_PATH2/.svn/
 mv $WC_FILE $SVN_PATH2/.svn/
 tar cfz $SVN_PATH2.tar.gz $SVN_PATH2
-rm -rf $SVN_PATH1
+rm -rf $SVN_PATH2 $SVN_PATH1
