@@ -1,8 +1,10 @@
 %define openssl_ver 0.9.8x
-%define xrootd_ver 3.0.5
-%define alien_ver 1.0.14n
+#%define xrootd_ver 3.0.5
+%define xrootd_ver 3.2.4
+#%define alien_ver 1.0.14n
+%define alien_ver 1.0.14p
 %define package_name root
-%define package_ver 5.34.05
+%define package_ver 5.34.07
 %define alice_dir /opt/cern/alice
 %define alice_prefix %{alice_dir}/root/%{package_ver}
 #%define alice_env_module_dir %{alice_dir}/env_modules
