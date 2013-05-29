@@ -1,8 +1,10 @@
 %define openssl_ver 0.9.8x
 %define xrootd_ver 3.0.5
+%define xrootd_ver 3.2.4
 %define alien_ver 1.0.14n
+%define alien_ver 1.0.14p
 %define package_name root
-%define package_ver 5.34.05
+%define package_ver 5.34.07
 %define alice_dir /opt/cern/alice
 %define alice_prefix %{alice_dir}/root/%{package_ver}
 #%define alice_env_module_dir %{alice_dir}/env_modules
@@ -52,11 +54,15 @@ rm -rf %{_builddir}/%{alice_prefix}/lib/*.a
 cd ..
 
 cd xrootd-%{xrootd_ver}
-./configure.classic --prefix=%{_builddir}/%{alice_prefix} --with-ssl-incdir=%{_builddir}/%{alice_prefix}/include --with-ssl-libdir=%{_builddir}/%{alice_prefix}/lib \
---enable-gsi --enable-secssl --no-arch-subdirs --disable-posix --disable-bonjour
+#./configure.classic --prefix=%{_builddir}/%{alice_prefix} --with-ssl-incdir=%{_builddir}/%{alice_prefix}/include --with-ssl-libdir=%{_builddir}/%{alice_prefix}/lib \
+#--enable-gsi --enable-secssl --no-arch-subdirs --disable-posix --disable-bonjour
+
+cmake -DOPENSSL_ROOT_DIR=%{_builddir}/%{alice_prefix} ../
+
 make %{?_smp_mflags}
 make install DESTDIR=%{_builddir}/%{alice_prefix}
 rm -Rf %{_builddir}/%{alice_prefix}/etc/*
+cd ..
 cd ..
 
 cd xrootd-xalienfs-%{alien_ver}
