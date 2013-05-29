@@ -56,6 +56,7 @@ cd ..
 cd xrootd-%{xrootd_ver}
 #./configure.classic --prefix=%{_builddir}/%{alice_prefix} --with-ssl-incdir=%{_builddir}/%{alice_prefix}/include --with-ssl-libdir=%{_builddir}/%{alice_prefix}/lib \
 #--enable-gsi --enable-secssl --no-arch-subdirs --disable-posix --disable-bonjour
+mkdir build
 cd build
 cmake -DOPENSSL_ROOT_DIR=%{_builddir}/%{alice_prefix} ../
 
