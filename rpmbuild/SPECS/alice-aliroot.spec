@@ -35,8 +35,8 @@ BuildRequires:  cmake subversion gcc-gfortran
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  glew-devel
-BuildRequires: alice-root-%{root_ver}-%{root_rev}-%{root_fedora_rev}
-Requires:  alice-root-%{root_ver}-%{root_rev}-%{root_fedora_rev}
+BuildRequires: alice-root-%{root_ver}-%{root_rev}
+Requires:  alice-root-%{root_ver}-%{root_rev}
 Requires:  alice-environment-modules
 
 # disable automatic lib search
