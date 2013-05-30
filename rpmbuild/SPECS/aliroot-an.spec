@@ -12,7 +12,7 @@ License:	LGPLv2+
 URL:		http://aliceinfo.cern.ch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:	alice-aliroot-an-%{alice_package_version}-%{alice_package_fedora_rev}
+Requires:	alice-aliroot-an-%{alice_package_version} = %{alice_package_fedora_rev}
 
 %description
 Virtual package to have NEW AliRoot
