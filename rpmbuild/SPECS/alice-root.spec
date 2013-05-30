@@ -1,7 +1,7 @@
 %define openssl_ver 0.9.8x
-%define xrootd_ver 3.0.5
-%define xrootd_ver 3.2.4
-%define alien_ver 1.0.14n
+#%define xrootd_ver 3.0.5
+%define xrootd_ver 3.3.2
+#%define alien_ver 1.0.14n
 %define alien_ver 1.0.14p
 %define package_name root
 %define package_ver 5.34.07
@@ -13,13 +13,13 @@
 
 
 Name:           alice-%{package_name}-%{package_ver}
-Version:        0
+Version:        1
 Release:        0%{?dist}
 Summary:        ROOT for ALICE
 Group:          Applications/Engineering
 License:        LGPLv2+
 URL:            http://root.cern.ch/
-Source:         root_v5.34.05.source.tar.gz
+Source:         root_v%{package_ver}.source.tar.gz
 Source1:        openssl-%{openssl_ver}.tar.gz
 Source2:        xrootd-%{xrootd_ver}.tar.gz
 Source3:        xrootd-xalienfs-%{alien_ver}.tar.gz

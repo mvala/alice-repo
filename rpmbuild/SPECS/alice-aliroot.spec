@@ -5,10 +5,11 @@
 %define package_name aliroot-an
 
 %define alice_package_version 5.04.61a
-%define alice_aliroot_post_version 0
+%define alice_aliroot_post_version 1
 %define	alice_fedora_rev 0
 #deps versions
 %define root_ver 5.34.07
+%define root_rev 1
 %define alice_name alice-%{package_name}
 
 %define alice_dir /opt/cern/alice
@@ -33,8 +34,8 @@ BuildRequires:  cmake subversion gcc-gfortran
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  glew-devel
-BuildRequires: alice-root-%{root_ver}
-Requires:  alice-root-%{root_ver}
+BuildRequires: alice-root-%{root_ver}-%{root_rev}
+Requires:  alice-root-%{root_ver}-%{root_rev}
 Requires:  alice-environment-modules
 
 # disable automatic lib search
