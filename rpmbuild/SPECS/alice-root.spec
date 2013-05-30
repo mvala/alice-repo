@@ -1,7 +1,5 @@
 %define openssl_ver 0.9.8x
-#%define xrootd_ver 3.0.5
 %define xrootd_ver 3.3.2
-#%define alien_ver 1.0.14n
 %define alien_ver 1.0.14p
 %define package_name root
 %define package_ver 5.34.07
@@ -13,7 +11,7 @@
 
 
 Name:           alice-%{package_name}-%{package_ver}
-Version:        1
+Version:        2
 Release:        0%{?dist}
 Summary:        ROOT for ALICE
 Group:          Applications/Engineering
@@ -27,8 +25,8 @@ Patch0:         openssl-0.9.8-no-rpath.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  coreutils, perl, sed, zlib-devel, autoconf, libtool
 BuildRequires:  libX11-devel, libXpm-devel, libXft-devel, libXext-devel
-BuildRequires:  mesa-libGL-devel, glew-devel, libxml2-devel, cmake
-Requires:       coreutils
+BuildRequires:  mesa-libGL-devel, glew-devel, libxml2-devel, cmake, krb5-devel
+Requires:       coreutils, krb5-libs
 
 %description
 ROOT for ALICE
