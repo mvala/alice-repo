@@ -65,16 +65,16 @@ function BuildAliRoot {
   TYPE_DIR=${FC_TYPE//-/\/}
   TYPE_DIR=${TYPE_DIR//fedora/alice} 
   LOCAL_REPO="/var/www/html/fedora/repos/$TYPE_DIR"
-  echo "Checking for rpm $LOCAL_REPO/aliroot-an-${MY_VER2}-0.fc$1.x86_64.rpm ..."
-  if [ -f $LOCAL_REPO/aliroot-an-${MY_VER2}-0.fc$1.x86_64.rpm ];then
+  echo "Checking for rpm $LOCAL_REPO/aliroot-an-${MY_VER2}-$MY_VER_POST-0.fc$1.x86_64.rpm ..."
+  if [ -f $LOCAL_REPO/aliroot-an-${MY_VER2}-$MY_VER_POST-0.fc$1.x86_64.rpm ];then
     return 1
   fi
-  echo "$LOCAL_REPO/aliroot-an-${MY_VER2}-0.fc$1.x86_64.rpm not found!!! We are going to build it ..."
+  echo "$LOCAL_REPO/aliroot-an-${MY_VER2}-$MY_VER_POST-0.fc$1.x86_64.rpm not found!!! We are going to build it ..."
   # build rmps
   rpmbuild -bs ~/rpmbuild/SPECS/alice-aliroot.spec
   rpmbuild -bs ~/rpmbuild/SPECS/aliroot-an.spec
   mock -r $FC_TYPE$FC_TYPE_EXTRA ~/rpmbuild/SRPMS/alice-aliroot-an-$MY_VER2-$MY_VER_POST-0.fc$FC_VER_SRPM.src.rpm || exit 1
-  mock -r $FC_TYPE$FC_TYPE_EXTRA --no-clean ~/rpmbuild/SRPMS/aliroot-an-${MY_VER2}-0.fc$FC_VER_SRPM.src.rpm || exit 1
+  mock -r $FC_TYPE$FC_TYPE_EXTRA --no-clean ~/rpmbuild/SRPMS/aliroot-an-${MY_VER2}-$MY_VER_POST.fc$FC_VER_SRPM.src.rpm || exit 1
   
 }
 

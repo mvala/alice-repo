@@ -1,3 +1,4 @@
+# Change version to 0
 %define openssl_ver 0.9.8x
 %define xrootd_ver 3.3.2
 %define alien_ver 1.0.14p
