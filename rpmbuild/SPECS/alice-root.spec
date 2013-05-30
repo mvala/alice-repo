@@ -86,6 +86,7 @@ cd root
   --with-xrootd-libdir=%{_builddir}/%{alice_prefix}/lib \
   --with-alien-incdir=%{_builddir}/%{alice_prefix}/include \
   --with-alien-libdir=%{_builddir}/%{alice_prefix}/lib \
+  --enable-roofit \
   --fail-on-missing
   
 make %{?_smp_mflags}
