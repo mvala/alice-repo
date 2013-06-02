@@ -1,9 +1,8 @@
 #!/bin/bash
 
-
 MY_VER_POST="0"
-MY_VER_POST_ROOT="0"
-FC_VER="18 17"
+MY_VER_POST_ROOT="2"
+FC_VER="19 18 17"
 #FC_VER="18"
 FC_VER_SRPM="18"
 FC_TYPE="fedora-$FC_VER-x86_64"
@@ -22,6 +21,8 @@ MY_VER=`cat ~/rpmbuild/SPECS/aliroot-an.spec | grep "define alice_package_versio
 MY_VER2=$MY_VER
 MY_VER=${MY_VER//./-}
 MY_ROOT_VER=`cat ~/rpmbuild/SPECS/alice-aliroot.spec | grep "define root_ver" | awk '{print $3}'`
+MY_VER_ALIENV=`cat ~/rpmbuild/SPECS/alice-environment-modules.spec | grep "define alice_package_version" | awk '{print $3}'`
+
 ALICE_REPO_DIR="$HOME/alice-repo"
 
 if [ ! -f ~/rpmbuild/SOURCES/root_v$MY_ROOT_VER.source.tar.gz ];then
@@ -41,6 +42,24 @@ if [ ! -f ~/rpmbuild/SOURCES/alice-aliroot-an-$MY_VER2.tar.gz ];then
   mv *.tar.gz ~/rpmbuild/SOURCES/
   cd $MYPWD
 fi
+
+function BuildAliEnv {
+  
+  FC_TYPE="fedora-$1-x86_64"
+  TYPE_DIR=${FC_TYPE//-/\/}
+  TYPE_DIR=${TYPE_DIR//fedora/alice} 
+  LOCAL_REPO="/var/www/html/fedora/repos/alice/$1/x86_64"
+  echo "Checking for rpm $LOCAL_REPO/alice-environment-modules-$MY_VER_ALIENV-1.fc$1.x86_64.rpm ..."
+  if [ -f $LOCAL_REPO/alice-environment-modules-$MY_VER_ALIENV-1.fc$1.x86_64.rpm ];then
+    return 1
+  fi
+  echo "$LOCAL_REPO/alice-environment-modules-$MY_VER_ALIENV-1.fc$1.x86_64.rpm not found!!! We are going to build it ..."
+  # build rmps
+  rpmbuild -bs ~/rpmbuild/SPECS/alice-environment-modules.spec 
+  mock -r $FC_TYPE$FC_TYPE_EXTRA ~/rpmbuild/SRPMS/alice-environment-modules-$MY_VER_ALIENV-1.fc$FC_VER_SRPM.src.rpm || exit 1
+  
+}
+
 
 function BuildRoot {
   
@@ -65,11 +84,11 @@ function BuildAliRoot {
   TYPE_DIR=${FC_TYPE//-/\/}
   TYPE_DIR=${TYPE_DIR//fedora/alice} 
   LOCAL_REPO="/var/www/html/fedora/repos/$TYPE_DIR"
-  echo "Checking for rpm $LOCAL_REPO/aliroot-an-${MY_VER2}-$MY_VER_POST-0.fc$1.x86_64.rpm ..."
-  if [ -f $LOCAL_REPO/aliroot-an-${MY_VER2}-$MY_VER_POST-0.fc$1.x86_64.rpm ];then
+  echo "Checking for rpm $LOCAL_REPO/aliroot-an-${MY_VER2}-$MY_VER_POST.fc$1.x86_64.rpm ..."
+  if [ -f $LOCAL_REPO/aliroot-an-${MY_VER2}-$MY_VER_POST.fc$1.x86_64.rpm ];then
     return 1
   fi
-  echo "$LOCAL_REPO/aliroot-an-${MY_VER2}-$MY_VER_POST-0.fc$1.x86_64.rpm not found!!! We are going to build it ..."
+  echo "$LOCAL_REPO/aliroot-an-${MY_VER2}-$MY_VER_POST.fc$1.x86_64.rpm not found!!! We are going to build it ..."
   # build rmps
   rpmbuild -bs ~/rpmbuild/SPECS/alice-aliroot.spec
   rpmbuild -bs ~/rpmbuild/SPECS/aliroot-an.spec
@@ -98,7 +117,10 @@ function RsyncWith {
 
 echo "Building AliRoot v$MY_VER-AN ..."
 for MY_FC_VER in $FC_VER;do
+
 #  echo "$MY_FC_VER"
+  BuildAliEnv $MY_FC_VER
+  RsyncWith $MY_FC_VER
   BuildRoot $MY_FC_VER
   RsyncWith $MY_FC_VER
   BuildAliRoot $MY_FC_VER
