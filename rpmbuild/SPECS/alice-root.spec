@@ -1,7 +1,7 @@
 # Change version to 0
 %define openssl_ver 0.9.8x
-%define xrootd_ver 3.3.2
-%define alien_ver 1.0.14p
+%define xrootd_ver 3.0.5
+%define alien_ver 1.0.14n
 %define package_name root
 %define package_ver 5.34.07
 %define alice_dir /opt/cern/alice
@@ -12,7 +12,7 @@
 
 
 Name:           alice-%{package_name}-%{package_ver}
-Version:        2
+Version:        3
 Release:        0%{?dist}
 Summary:        ROOT for ALICE
 Group:          Applications/Engineering
