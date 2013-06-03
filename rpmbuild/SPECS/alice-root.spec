@@ -58,7 +58,8 @@ cd xrootd-%{xrootd_ver}
 #mkdir build
 #cd build
 #cmake -DOPENSSL_ROOT_DIR=%{_builddir}/%{alice_prefix} -DCMAKE_INSTALL_LIBDIR="lib" -DCMAKE_INSTALL_PREFIX=/ ../
-make %{?_smp_mflags}
+#make %{?_smp_mflags}
+make 
 make install DESTDIR=%{_builddir}/%{alice_prefix}
 rm -Rf %{_builddir}/%{alice_prefix}/etc/*
 #cd ..
