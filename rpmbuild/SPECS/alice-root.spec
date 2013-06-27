@@ -4,6 +4,7 @@
 %define alien_ver 1.0.14n
 %define package_name root
 %define package_ver 5.34.08
+%define package_ver_dir root-v5-34-00-patches
 %define alice_dir /opt/cern/alice
 %define alice_prefix %{alice_dir}/root/%{package_ver}
 #%define alice_env_module_dir %{alice_dir}/env_modules
@@ -76,7 +77,7 @@ make install DESTDIR=%{_builddir}
 make install-certificates
 cd ..
 
-cd root
+cd %{package_ver_dir}
 ./configure \
   --with-pythia6-uscore=SINGLE \
   --with-f77=gfortran \
@@ -95,7 +96,7 @@ cd ..
 %install
 cp -Rp %{_builddir}/opt %{buildroot}/
 rm -Rf %{_builddir}/opt
-cd root
+cd %{package_ver_dir}
 export ROOTSYS="%{buildroot}/%{alice_prefix}"
 make install
 cd ..
