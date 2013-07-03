@@ -3,7 +3,7 @@
 %define xrootd_ver 3.0.5
 %define alien_ver 1.0.14n
 %define package_name root
-%define package_ver 5.34.08
+%define package_ver 5.34.09
 %define package_ver_dir root-v5-34-00-patches
 %define alice_dir /opt/cern/alice
 %define alice_prefix %{alice_dir}/root/%{package_ver}
@@ -13,7 +13,7 @@
 
 
 Name:           alice-%{package_name}-%{package_ver}
-Version:        1
+Version:        0
 Release:        0%{?dist}
 Summary:        ROOT for ALICE
 Group:          Applications/Engineering
