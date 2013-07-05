@@ -4,7 +4,8 @@
 %define alien_ver 1.0.14n
 %define package_name root
 %define package_ver 5.34.09
-%define package_ver_dir root-v5-34-00-patches
+#%define package_ver_dir root-v5-34-00-patches
+%define package_ver_dir root
 %define alice_dir /opt/cern/alice
 %define alice_prefix %{alice_dir}/root/%{package_ver}
 #%define alice_env_module_dir %{alice_dir}/env_modules
