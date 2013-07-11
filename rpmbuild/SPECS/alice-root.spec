@@ -14,8 +14,8 @@
 
 
 Name:           alice-%{package_name}-%{package_ver}
-Version:        0
-Release:        1%{?dist}
+Version:        1
+Release:        0%{?dist}
 Summary:        ROOT for ALICE
 Group:          Applications/Engineering
 License:        LGPLv2+
