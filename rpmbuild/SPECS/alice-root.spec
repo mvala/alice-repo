@@ -15,7 +15,7 @@
 
 Name:           alice-%{package_name}-%{package_ver}
 Version:        0
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        ROOT for ALICE
 Group:          Applications/Engineering
 License:        LGPLv2+
@@ -88,7 +88,7 @@ cd %{package_ver_dir}
   --with-xrootd-libdir=%{_builddir}/%{alice_prefix}/lib \
   --with-alien-incdir=%{_builddir}/%{alice_prefix}/include \
   --with-alien-libdir=%{_builddir}/%{alice_prefix}/lib \
-  --enable-roofit \
+  --enable-roofit --enable-afdsmgrd \
   --fail-on-missing
   
 make %{?_smp_mflags}
