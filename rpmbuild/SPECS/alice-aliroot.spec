@@ -4,12 +4,12 @@
 # version
 %define package_name aliroot-an
 
-%define alice_package_version 5.04.79
-%define alice_aliroot_post_version 1
+%define alice_package_version 5.04.80
+%define alice_aliroot_post_version 0
 %define	alice_fedora_rev 0
 #deps versions
-%define root_ver 5.34.09
-%define root_rev 1
+%define root_ver 5.34.07
+%define root_rev 4
 %define root_fedora_rev 0
 %define alice_name alice-%{package_name}
 
