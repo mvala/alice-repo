@@ -38,6 +38,7 @@ BuildRequires:  glew-devel
 BuildRequires:  alice-root-%{root_ver} = %{root_rev}
 Requires:  alice-root-%{root_ver} = %{root_rev}
 Requires:  alice-environment-modules
+Requires:  libgfortran
 
 # disable automatic lib search
 AutoReqProv: no
