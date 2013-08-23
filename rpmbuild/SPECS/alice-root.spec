@@ -26,7 +26,7 @@ Source2:        xrootd-%{xrootd_ver}.tar.gz
 Source3:        xrootd-xalienfs-%{alien_ver}.tar.gz
 Patch0:         openssl-0.9.8-no-rpath.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires:  coreutils, perl, sed, zlib-devel, autoconf, libtool
+BuildRequires:  coreutils, perl, sed, zlib-devel, autoconf, libtool, cmake
 BuildRequires:  libX11-devel, libXpm-devel, libXft-devel, libXext-devel
 BuildRequires:  mesa-libGL-devel, glew-devel, libxml2-devel, cmake, krb5-devel, readline-devel
 BuildRequires:  python-devel
@@ -56,13 +56,13 @@ rm -rf %{_builddir}/%{alice_prefix}/lib/*.a
 cd ..
 
 cd xrootd-%{xrootd_ver}
-./configure.classic --prefix=%{_builddir}/%{alice_prefix} --with-ssl-incdir=%{_builddir}/%{alice_prefix}/include --with-ssl-libdir=%{_builddir}/%{alice_prefix}/lib \
---enable-gsi --enable-secssl --no-arch-subdirs --disable-posix --disable-bonjour
-#mkdir build
-#cd build
-#cmake -DOPENSSL_ROOT_DIR=%{_builddir}/%{alice_prefix} -DCMAKE_INSTALL_LIBDIR="lib" -DCMAKE_INSTALL_PREFIX=/ ../
-#make %{?_smp_mflags}
-make 
+#./configure.classic --prefix=%{_builddir}/%{alice_prefix} --with-ssl-incdir=%{_builddir}/%{alice_prefix}/include --with-ssl-libdir=%{_builddir}/%{alice_prefix}/lib \
+#--enable-gsi --enable-secssl --no-arch-subdirs --disable-posix --disable-bonjour
+mkdir build
+cd build
+cmake -DOPENSSL_ROOT_DIR=%{_builddir}/%{alice_prefix} -DCMAKE_INSTALL_LIBDIR="lib" -DCMAKE_INSTALL_PREFIX=/ ../
+make %{?_smp_mflags}
+#make 
 make install DESTDIR=%{_builddir}/%{alice_prefix}
 rm -Rf %{_builddir}/%{alice_prefix}/etc/*
 #cd ..
