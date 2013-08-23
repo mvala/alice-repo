@@ -100,6 +100,7 @@ setenv                  ALICE_TARGET    $ALICE_TARGET
 setenv                  X509_CERT_DIR   %{rootsys_dir}/share/certificates
 setenv                  GSHELL_NO_GCC   1
 setenv                  GSHELL_ROOT     %{rootsys_dir}
+prepend-path            PYTHONPATH      %{rootsys_dir}/lib
 EOF
 
 mkdir -p %{buildroot}/etc/modulefiles
