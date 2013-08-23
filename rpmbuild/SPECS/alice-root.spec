@@ -14,7 +14,7 @@
 
 
 Name:           alice-%{package_name}-%{package_ver}
-Version:        0
+Version:        2
 Release:        0%{?dist}
 Summary:        ROOT for ALICE
 Group:          Applications/Engineering

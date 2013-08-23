@@ -9,7 +9,7 @@
 %define	alice_fedora_rev 0
 #deps versions
 %define root_ver 5.34.09
-%define root_rev 0
+%define root_rev 2
 %define root_fedora_rev 0
 %define alice_name alice-%{package_name}
 
