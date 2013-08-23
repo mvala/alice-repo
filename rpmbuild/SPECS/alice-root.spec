@@ -65,7 +65,7 @@ make %{?_smp_mflags}
 #make 
 make install DESTDIR=%{_builddir}/%{alice_prefix}
 rm -Rf %{_builddir}/%{alice_prefix}/etc/*
-#cd ..
+cd ..
 cd ..
 
 cd xrootd-xalienfs-%{alien_ver}
