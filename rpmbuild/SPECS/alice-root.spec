@@ -1,6 +1,6 @@
 # Change version to 0
 %define openssl_ver 0.9.8x
-%define xrootd_ver 3.0.5
+%define xrootd_ver 3.2.7
 %define alien_ver 1.0.14n
 %define package_name root
 %define package_ver 5.34.07
@@ -14,7 +14,7 @@
 
 
 Name:           alice-%{package_name}-%{package_ver}
-Version:        4
+Version:        5
 Release:        0%{?dist}
 Summary:        ROOT for ALICE
 Group:          Applications/Engineering
@@ -29,6 +29,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  coreutils, perl, sed, zlib-devel, autoconf, libtool
 BuildRequires:  libX11-devel, libXpm-devel, libXft-devel, libXext-devel
 BuildRequires:  mesa-libGL-devel, glew-devel, libxml2-devel, cmake, krb5-devel, readline-devel
+BuildRequires:  python-devel
 Requires:       coreutils, krb5-libs, readline, xorg-x11-fonts-ISO8859-1-75dpi
 
 %description
@@ -89,6 +90,7 @@ cd %{package_ver_dir}
   --with-alien-incdir=%{_builddir}/%{alice_prefix}/include \
   --with-alien-libdir=%{_builddir}/%{alice_prefix}/lib \
   --enable-roofit --enable-afdsmgrd \
+  --enable-python \
   --fail-on-missing
   
 make %{?_smp_mflags}
