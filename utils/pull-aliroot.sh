@@ -12,10 +12,11 @@ if [ ! -d $HOME/ALICE/AliRoot ];then
     mkdir -p $HOME/ALICE/
     cd $HOME/ALICE/
     git clone git clone http://git.cern.ch/pub/AliRoot
-else 
-    git checkout master
-    git pull
 fi
+
+cd $HOME/ALICE/AliRoot
+git checkout master
+git pull
 
 git archive --format=tar.gz --prefix=alice-aliroot-an-$MY_VER/ v$1-AN > $HOME/rpmbuild/SOURCES/alice-aliroot-an-$MY_VER.tar.gz
 
