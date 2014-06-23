@@ -97,6 +97,9 @@ cd ../
 rm -Rf %{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/%{alice_name}-%{alice_package_version}/build
 cp -rf * %{buildroot}%{alice_prefix}
 
+cp -f %{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/geant3/lib/tgt_$ALICE_TARGET/libgeant321.so %{buildroot}%{alice_prefix}/lib/tgt_$ALICE_TARGET/
+cp -f %{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/geant3/TGeant3/TGeant3.h %{buildroot}%{alice_prefix}/include/
+
 # create module file
 mkdir -p %{buildroot}%{alice_prefix}/etc/modulefiles
 cat > %{buildroot}%{alice_prefix}/etc/modulefiles/%{alice_name}-%{alice_package_version}-%{version} <<EOF
