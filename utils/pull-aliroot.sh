@@ -11,15 +11,15 @@ MY_VER=${1//-/.}
 if [ ! -d $HOME/ALICE/AliRoot ];then
     mkdir -p $HOME/ALICE/
     cd $HOME/ALICE/
-    git clone git clone http://git.cern.ch/pub/AliRoot
+    git clone http://git.cern.ch/pub/AliRoot
 fi
 
 cd $HOME/ALICE/AliRoot
 git checkout master
 git pull
-
-git archive --format=tar.gz --prefix=alice-aliroot-an-$MY_VER/ v$1-AN > $HOME/rpmbuild/SOURCES/alice-aliroot-an-$MY_VER.tar.gz
-
+#echo "git archive --format=tar.gz --prefix=alice-aliroot-an-$MY_VER/ v$1-AN > $HOME/rpmbuild/SOURCES/alice-aliroot-an-$MY_VER.tar.gz"
+#git archive --format=tar.gz --prefix=alice-aliroot-an-$MY_VER/ v$1-AN > $HOME/rpmbuild/SOURCES/alice-aliroot-an-$MY_VER.tar.gz
+git archive --format=tar.gz --prefix=alice-aliroot-an-$MY_VER/ vAN-$1 > $HOME/rpmbuild/SOURCES/alice-aliroot-an-$MY_VER.tar.gz
 #SVN_PATH1="AliRoot_svn_$1"
 #SVN_PATH2="alice-aliroot-an-$MY_VER"
 #WC_FILE="wc.db"

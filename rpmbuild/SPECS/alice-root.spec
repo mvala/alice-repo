@@ -14,7 +14,7 @@
 
 
 Name:           alice-%{package_name}-%{package_ver}
-Version:        0
+Version:        1
 Release:        0%{?dist}
 Summary:        ROOT for ALICE
 Group:          Applications/Engineering
@@ -29,7 +29,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  coreutils, perl, sed, zlib-devel, autoconf, libtool, cmake
 BuildRequires:  libX11-devel, libXpm-devel, libXft-devel, libXext-devel
 BuildRequires:  mesa-libGL-devel, glew-devel, libxml2-devel, cmake, krb5-devel, readline-devel
-BuildRequires:  python-devel libpng-devel
+BuildRequires:  python-devel libpng-devel gcc-gfortran
 Requires:       coreutils, krb5-libs, readline, xorg-x11-fonts-ISO8859-1-75dpi
 
 %description

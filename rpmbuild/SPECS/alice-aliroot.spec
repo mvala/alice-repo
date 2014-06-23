@@ -4,13 +4,19 @@
 # version
 %define package_name aliroot-an
 
-%define alice_package_version 20140611
+%define alice_package_version 20140622
 %define alice_aliroot_post_version 0
 %define	alice_fedora_rev 0
 #deps versions
 %define root_ver 5.34.18
 %define root_rev 0
 %define root_fedora_rev 0
+
+%define geant3_ver 1.15a
+%define geant3_rev 0
+#%define geant3_fedora_rev 0
+
+#alice-geant3-1.15a.8.tar.gz
 %define alice_name alice-%{package_name}
 
 %define alice_dir /opt/cern/alice
@@ -29,9 +35,11 @@ Group:		System Environment/Daemons
 License:	LGPLv2+ 
 URL:		http://aliceinfo.cern.ch/
 Source0:	%{alice_name}-%{alice_package_version}.tar.gz
+Source1:        alice-geant3-%{geant3_ver}.%{geant3_rev}.tar.gz
+#Patch0:         geant3_makefile.patch 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  alice-environment-modules
-BuildRequires:  cmake subversion gcc-gfortran
+BuildRequires:  cmake git subversion gcc-gfortran
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  glew-devel
@@ -47,17 +55,24 @@ AutoReqProv: no
 AliRoot for ALICE
 
 %prep
-%setup -q -n %{alice_name}-%{alice_package_version}
+#%setup -q -n %{alice_name}-%{alice_package_version}
+%setup -D -q -a 1 -c alice-geant3-%{geant3_ver}.%{geant3_rev}
+ln -sfn alice-geant3-%{geant3_ver}.%{geant3_rev} geant3
 
 %build
 export ROOTSYS="%{rootsys_dir}"
-export GEANT3="%{geant3_dir}"
+export GEANT3="%{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/geant3"
 export LD_LIBRARY_PATH="%{rootsys_dir}/lib:$LD_LIBRARY_PATH"
 export PATH="%{rootsys_dir}/bin:$PATH"
 export ALICE_TARGET="$(root-config --arch)"
 export ALICE_INSTALL="%{alice_prefix}"
-export ALICE_ROOT="${PWD}"
+export ALICE_ROOT="%{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/%{alice_name}-%{alice_package_version}"
 export ALICE="$(dirname ${ALICE_ROOT})"
+
+cd $GEANT3
+make 
+cd ../$ALICE_ROOT
+
 mkdir build
 cd build
 cmake $ALICE_ROOT
