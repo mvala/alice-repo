@@ -9,7 +9,7 @@
 %define	alice_fedora_rev 0
 #deps versions
 %define root_ver 5.34.18
-%define root_rev 0
+%define root_rev 1
 %define root_fedora_rev 0
 
 %define geant3_ver 1.15a
@@ -66,12 +66,13 @@ export LD_LIBRARY_PATH="%{rootsys_dir}/lib:$LD_LIBRARY_PATH"
 export PATH="%{rootsys_dir}/bin:$PATH"
 export ALICE_TARGET="$(root-config --arch)"
 export ALICE_INSTALL="%{alice_prefix}"
+export LD_LIBRARY_PATH="$GEANT3/lib/tgt_$ALICE_TARGET:$LD_LIBRARY_PATH"
 export ALICE_ROOT="%{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/%{alice_name}-%{alice_package_version}"
 export ALICE="$(dirname ${ALICE_ROOT})"
 
 cd $GEANT3
 make 
-cd ../$ALICE_ROOT
+cd $ALICE_ROOT
 
 mkdir build
 cd build
