@@ -82,7 +82,7 @@ cd %{_builddir}
 
 %install
 rm -rf %{buildroot}
-cd build
+cd %{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/%{alice_name}-%{alice_package_version}/build
 make install DESTDIR=%{buildroot}/
 export PATH="%{rootsys_dir}/bin:$PATH"
 export ALICE_TARGET="$(root-config --arch)"
@@ -94,7 +94,7 @@ mv *.par %{buildroot}%{alice_prefix}/pars/
 
 # copy * from source (TODO copy only headers)
 cd ../
-rm -Rf build
+rm -Rf %{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/%{alice_name}-%{alice_package_version}/build
 cp -rf * %{buildroot}%{alice_prefix}
 
 # create module file
