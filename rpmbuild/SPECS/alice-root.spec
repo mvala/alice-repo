@@ -76,7 +76,8 @@ rm -Rf autom4te.cache
   --with-xrootd-location=%{_builddir}/%{alice_prefix}
 make %{?_smp_mflags}
 make install DESTDIR=%{_builddir}
-make install-certificates
+#make install-certificates
+cp -r share %{_builddir}/%{alice_prefix}/
 cd ..
 
 cd %{package_ver_dir}
