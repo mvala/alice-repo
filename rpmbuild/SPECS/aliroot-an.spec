@@ -1,6 +1,6 @@
 %define package_name an
 %define alice_name aliroot-%{package_name}
-%define alice_package_version 20140622
+%define alice_package_version 20140629
 %define alice_package_fedora_rev 0
 
 Name:		%{alice_name}
