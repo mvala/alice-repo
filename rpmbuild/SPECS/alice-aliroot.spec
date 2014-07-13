@@ -9,7 +9,7 @@
 %define	alice_fedora_rev 0
 #deps versions
 %define root_ver 5.34.19
-%define root_rev 0
+%define root_rev 1
 %define root_fedora_rev 0
 
 %define geant3_ver 1.15a

@@ -14,7 +14,7 @@
 
 
 Name:           alice-%{package_name}-%{package_ver}
-Version:        0
+Version:        1
 Release:        0%{?dist}
 Summary:        ROOT for ALICE
 Group:          Applications/Engineering
@@ -92,6 +92,7 @@ cd %{package_ver_dir}
   --with-alien-libdir=%{_builddir}/%{alice_prefix}/lib \
   --enable-roofit --enable-afdsmgrd \
   --enable-python \
+  --enable-http \
   --fail-on-missing
   
 make %{?_smp_mflags}
