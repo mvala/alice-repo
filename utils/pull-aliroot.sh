@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-    echo "specify AliRoot SVN version tag (without v), for example: 5-04-25"
+    echo "specify AliRoot SVN version tag (without v), for example: 20141019"
     echo "list of all tags: svn list https://alisoft.cern.ch/AliRoot/tags"
     exit 1
 fi

@@ -4,12 +4,12 @@
 # version
 %define package_name aliroot-an
 
-%define alice_package_version 20140714
+%define alice_package_version 20141214
 %define alice_aliroot_post_version 0
 %define	alice_fedora_rev 0
 #deps versions
-%define root_ver 5.34.19
-%define root_rev 1
+%define root_ver 5.34.23
+%define root_rev 0
 %define root_fedora_rev 0
 
 %define geant3_ver 1.15a
@@ -32,11 +32,11 @@ Version:	%{alice_aliroot_post_version}
 Release:	%{alice_fedora_rev}%{?dist}
 Summary:	AliRoot for ALICE
 Group:		System Environment/Daemons
-License:	LGPLv2+ 
+License:	LGPLv2+
 URL:		http://aliceinfo.cern.ch/
 Source0:	%{alice_name}-%{alice_package_version}.tar.gz
 Source1:        alice-geant3-%{geant3_ver}.%{geant3_rev}.tar.gz
-#Patch0:         geant3_makefile.patch 
+#Patch0:         geant3_makefile.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  alice-environment-modules
 BuildRequires:  cmake git subversion gcc-gfortran
@@ -71,7 +71,7 @@ export ALICE_ROOT="%{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_a
 export ALICE="$(dirname ${ALICE_ROOT})"
 
 cd $GEANT3
-make 
+make
 cd $ALICE_ROOT
 
 mkdir build
@@ -104,9 +104,9 @@ cp -f %{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_v
 mkdir -p %{buildroot}%{alice_prefix}/etc/modulefiles
 cat > %{buildroot}%{alice_prefix}/etc/modulefiles/%{alice_name}-%{alice_package_version}-%{version} <<EOF
 #%Module 1.0
-# 
+#
 # AliRoot module for use with 'environment-modules' package:
-# 
+#
 prepend-path            PATH            %{rootsys_dir}/bin
 prepend-path            PATH            %{alice_prefix}/bin/tgt_$ALICE_TARGET
 prepend-path            LD_LIBRARY_PATH %{rootsys_dir}/lib
