@@ -1,6 +1,6 @@
 %define package_name an
-%define alice_name aliroot-%{package_name}
-%define alice_package_version 20141214
+%define alice_name aliphysics-%{package_name}
+%define alice_package_version 20150428
 %define alice_package_fedora_rev 0
 
 Name:		%{alice_name}
@@ -12,10 +12,10 @@ License:	LGPLv2+
 URL:		http://aliceinfo.cern.ch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:	alice-aliroot-an-%{alice_package_version} = %{alice_package_fedora_rev}
+Requires:	alice-aliphysics-an-%{alice_package_version} = %{alice_package_fedora_rev}
 
 %description
-Virtual package to have NEW AliRoot
+Virtual package to for latest AliPhysics
 
 %prep
 

@@ -1,25 +1,25 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-    echo "specify AliRoot SVN version tag (without v), for example: 5-06-10"
+    echo "specify AliRoot SVN version tag (without v), for example: 20150326"
     echo "list of all tags: svn list https://alisoft.cern.ch/AliRoot/tags"
     exit 1
 fi
 
 MY_VER=${1//-/.}
 
-if [ ! -d $HOME/ALICE/SW/AliRoot ];then
+if [ ! -d $HOME/ALICE/SW/AliPhysics ];then
     mkdir -p $HOME/ALICE/SW
     cd $HOME/ALICE/SW
-    git clone http://git.cern.ch/pub/AliRoot
+    git clone http://git.cern.ch/pub/AliPhysics
 fi
 
-cd $HOME/ALICE/SW/AliRoot
+cd $HOME/ALICE/SW/AliPhysics
 git checkout master
 git pull
 #echo "git archive --format=tar.gz --prefix=alice-aliroot-an-$MY_VER/ v$1-AN > $HOME/rpmbuild/SOURCES/alice-aliroot-an-$MY_VER.tar.gz"
 #git archive --format=tar.gz --prefix=alice-aliroot-an-$MY_VER/ v$1-AN > $HOME/rpmbuild/SOURCES/alice-aliroot-an-$MY_VER.tar.gz
-git archive --format=tar.gz --prefix=alice-aliroot-v$MY_VER/ v$1 > $HOME/rpmbuild/SOURCES/alice-aliroot-v$MY_VER.tar.gz
+git archive --format=tar.gz --prefix=alice-aliphysics-an-$MY_VER/ vAN-$1 > $HOME/rpmbuild/SOURCES/alice-aliphysics-an-$MY_VER.tar.gz
 #SVN_PATH1="AliRoot_svn_$1"
 #SVN_PATH2="alice-aliroot-an-$MY_VER"
 #WC_FILE="wc.db"

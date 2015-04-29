@@ -3,7 +3,7 @@
 %define xrootd_ver 3.2.7
 %define alien_ver 1.0.14p
 %define package_name root
-%define package_ver 5.34.23
+%define package_ver 5.34.30
 #%define package_ver_dir root-v5-34-00-patches
 %define package_ver_dir root
 %define alice_dir /opt/cern/alice

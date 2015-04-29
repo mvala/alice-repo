@@ -1,18 +1,33 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-    echo "specify GEANT3 SVN version tag (without v), for example: 1-14"
-    echo "list of all tags: svn list https://root.cern.ch/svn/geant3/tags"
+    echo "specify AliRoot SVN version tag (without v), for example: 2-0"
     exit 1
 fi
 
-G3_REV="0"
-G3_VER=${1//-/.}.$G3_REV
+MY_VER=${1//-/.}
 
-SVN_PATH1="geant3_svn_$G3_VER"
-SVN_PATH2="alice-geant3-$G3_VER"
+if [ ! -d $HOME/ALICE/SW/geant3 ];then
+    mkdir -p $HOME/ALICE/SW
+    cd $HOME/ALICE/SW
+    git clone http://root.cern.ch/git/geant3.git
+fi
 
-svn co https://root.cern.ch/svn/geant3/tags/v$1 $SVN_PATH1
-svn -q export $SVN_PATH1 $SVN_PATH2
-tar cfz $SVN_PATH2.tar.gz $SVN_PATH2
-rm -rf $SVN_PATH1
+cd $HOME/ALICE/SW/geant3
+git checkout master
+git pull
+#echo "git archive --format=tar.gz --prefix=alice-aliroot-an-$MY_VER/ v$1-AN > $HOME/rpmbuild/SOURCES/alice-aliroot-an-$MY_VER.tar.gz"
+#git archive --format=tar.gz --prefix=alice-aliroot-an-$MY_VER/ v$1-AN > $HOME/rpmbuild/SOURCES/alice-aliroot-an-$MY_VER.tar.gz
+git archive --format=tar.gz --prefix=alice-geant3-$MY_VER.0/ v$1 > $HOME/rpmbuild/SOURCES/alice-geant3-$MY_VER.0.tar.gz
+#SVN_PATH1="AliRoot_svn_$1"
+#SVN_PATH2="alice-aliroot-an-$MY_VER"
+#WC_FILE="wc.db"
+
+##svn co https://alisoft.cern.ch/AliRoot/tags/v$1-AN $SVN_PATH1
+#svn co http://svn.cern.ch/guest/AliRoot/tags/v$1-AN $SVN_PATH1
+#cp $SVN_PATH1/.svn/$WC_FILE $WC_FILE
+#svn -q export $SVN_PATH1 $SVN_PATH2
+#mkdir $SVN_PATH2/.svn/
+#mv $WC_FILE $SVN_PATH2/.svn/
+#tar cfz $SVN_PATH2.tar.gz $SVN_PATH2
+#rm -rf $SVN_PATH2 $SVN_PATH1

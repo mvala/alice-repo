@@ -14,7 +14,7 @@ function CheckActiveAliRoot() {
   MY_ALIROOT_ACTIVE_MODULE=""
   MY_LOADEDMODULES="${LOADEDMODULES//:/ }"
   for MOD in $MY_LOADEDMODULES;do
-    if [[ "$MOD" == alice-aliroot-an* ]];then
+    if [[ "$MOD" == alice-* ]];then
       MY_ALIROOT_ACTIVE_MODULE="$MOD"
     fi
     if [ -n "$MY_ALIROOT_ACTIVE_MODULE" ];then
@@ -30,7 +30,7 @@ function ListAliRootModules() {
   echo "AliROOT versions available:"
   echo ""
   for MOD in `ls -1t $ALIROOT_MODULE_DIR`;do
-    if [[ "$MOD" == alice-aliroot-an* ]];then
+    if [[ "$MOD" == alice-* ]];then
       if [ "$MOD" = "$ALIROOT_ACTIVE_MODULE" ];then
         MY_STAR="*"
       else
@@ -88,7 +88,7 @@ function UpdateToLatest() {
       if [ ! -f "/etc/modulefiles/$MY_MODULE" ];then
         rm -Rf $HOME/.alice/
         mkdir -p $HOME/.alice
-        MY_LATEST_MODULE=$(cd /etc/modulefiles/ ;ls -1t alice-aliroot-an* | head -n 1)
+        MY_LATEST_MODULE=$(cd /etc/modulefiles/ ;ls -1t alice-* | head -n 1)
         if [ -n "$MY_LATEST_MODULE" ];then
           echo "Updating to $MY_LATEST_MODULE"
           cp /etc/modulefiles/$MY_LATEST_MODULE $HOME/.alice/

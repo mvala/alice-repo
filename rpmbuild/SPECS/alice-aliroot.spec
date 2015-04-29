@@ -2,17 +2,17 @@
 %global debug_package %{nil}
 
 # version
-%define package_name aliroot-an
+%define package_name aliroot
 
-%define alice_package_version 20141214
+%define alice_package_version v5.06.14
 %define alice_aliroot_post_version 0
 %define	alice_fedora_rev 0
 #deps versions
-%define root_ver 5.34.23
+%define root_ver 5.34.30
 %define root_rev 0
 %define root_fedora_rev 0
 
-%define geant3_ver 1.15a
+%define geant3_ver 2.0
 %define geant3_rev 0
 #%define geant3_fedora_rev 0
 
@@ -39,7 +39,7 @@ Source1:        alice-geant3-%{geant3_ver}.%{geant3_rev}.tar.gz
 #Patch0:         geant3_makefile.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  alice-environment-modules
-BuildRequires:  cmake git subversion gcc-gfortran
+BuildRequires:  cmake git gcc-gfortran
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  glew-devel
@@ -71,12 +71,25 @@ export ALICE_ROOT="%{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_a
 export ALICE="$(dirname ${ALICE_ROOT})"
 
 cd $GEANT3
+[ -d build ] || mkdir build
+cd build
+cmake ../
 make
 cd $ALICE_ROOT
+sed -i 's/include(CheckGitVersion)/#include(CheckGitVersion)/g' CMakeLists.txt 
 
-mkdir build
+[ -d build ] || mkdir build
 cd build
-cmake $ALICE_ROOT
+cmake -DROOTSYS=$ROOTSYS -DALIEN=$ROOTSYS -DCMAKE_INSTALL_PREFIX=%{alice_prefix} $ALICE_ROOT
+cat > version/ARVersion.h <<EOF
+#ifndef ALIROOT_ARVersion
+#define ALIROOT_ARVersion
+#define ALIROOT_VERSION "%{alice_package_version}"
+#define ALIROOT_REVISION "%{alice_aliroot_post_version}"
+#define ALIROOT_BRANCH ""
+#define ALIROOT_SERIAL 0
+#endif
+EOF
 make %{?_smp_mflags}
 cd %{_builddir}
 
@@ -87,43 +100,12 @@ make install DESTDIR=%{buildroot}/
 export PATH="%{rootsys_dir}/bin:$PATH"
 export ALICE_TARGET="$(root-config --arch)"
 
-# creating pars
-make par-all
-mkdir -p %{buildroot}%{alice_prefix}/pars
-mv *.par %{buildroot}%{alice_prefix}/pars/
-
-# copy * from source (TODO copy only headers)
 cd ../
 rm -Rf %{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/%{alice_name}-%{alice_package_version}/build
 cp -rf * %{buildroot}%{alice_prefix}
 
-cp -f %{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/geant3/lib/tgt_$ALICE_TARGET/libgeant321.so %{buildroot}%{alice_prefix}/lib/tgt_$ALICE_TARGET/
+cp -f %{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/geant3/build/libgeant321.so %{buildroot}%{alice_prefix}/lib/
 cp -f %{_builddir}/%{alice_name}-%{alice_package_version}-%{alice_aliroot_post_version}/geant3/TGeant3/TGeant3.h %{buildroot}%{alice_prefix}/include/
-
-# create module file
-mkdir -p %{buildroot}%{alice_prefix}/etc/modulefiles
-cat > %{buildroot}%{alice_prefix}/etc/modulefiles/%{alice_name}-%{alice_package_version}-%{version} <<EOF
-#%Module 1.0
-#
-# AliRoot module for use with 'environment-modules' package:
-#
-prepend-path            PATH            %{rootsys_dir}/bin
-prepend-path            PATH            %{alice_prefix}/bin/tgt_$ALICE_TARGET
-prepend-path            LD_LIBRARY_PATH %{rootsys_dir}/lib
-prepend-path            LD_LIBRARY_PATH %{alice_prefix}/lib/tgt_$ALICE_TARGET
-setenv                  ROOTSYS         %{rootsys_dir}
-setenv                  GEANT3          %{alice_dir}
-setenv                  ALICE_ROOT      %{alice_prefix}
-setenv                  ALICE           %{alice_dir}
-setenv                  ALICE_TARGET    $ALICE_TARGET
-setenv                  X509_CERT_DIR   %{rootsys_dir}/share/certificates
-setenv                  GSHELL_NO_GCC   1
-setenv                  GSHELL_ROOT     %{rootsys_dir}
-prepend-path            PYTHONPATH      %{rootsys_dir}/lib
-EOF
-
-mkdir -p %{buildroot}/etc/modulefiles
-cp %{buildroot}%{alice_prefix}/etc/modulefiles/%{alice_name}-%{alice_package_version}-%{version} %{buildroot}/etc/modulefiles/
 
 %clean
 rm -rf %{buildroot}
@@ -131,5 +113,4 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %{alice_prefix}
-/etc/modulefiles/%{alice_name}-%{alice_package_version}-%{version}
 %changelog
