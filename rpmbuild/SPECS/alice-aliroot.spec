@@ -4,11 +4,11 @@
 # version
 %define package_name aliroot
 
-%define alice_package_version v5.06.14
+%define alice_package_version v5.06.34
 %define alice_aliroot_post_version 0
 %define	alice_fedora_rev 0
 #deps versions
-%define root_ver 5.34.30
+%define root_ver 5.34.32
 %define root_rev 0
 %define root_fedora_rev 0
 
@@ -76,11 +76,14 @@ cd build
 cmake ../
 make
 cd $ALICE_ROOT
-sed -i 's/include(CheckGitVersion)/#include(CheckGitVersion)/g' CMakeLists.txt 
+sed -i 's/include(CheckGitVersion)/#include(CheckGitVersion)/g' CMakeLists.txt
+#%if 0%{?fedora} >= 22
+#CPP_TMP_EXTRA=-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-Wno-return-local-addr"
+#%endif
 
 [ -d build ] || mkdir build
 cd build
-cmake -DROOTSYS=$ROOTSYS -DALIEN=$ROOTSYS -DCMAKE_INSTALL_PREFIX=%{alice_prefix} $ALICE_ROOT
+cmake -DROOTSYS=$ROOTSYS -DALIEN=$ROOTSYS -DCMAKE_INSTALL_PREFIX=%{alice_prefix} $CPP_TMP_EXTRA $ALICE_ROOT
 cat > version/ARVersion.h <<EOF
 #ifndef ALIROOT_ARVersion
 #define ALIROOT_ARVersion

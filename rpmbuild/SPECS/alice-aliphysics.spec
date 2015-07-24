@@ -4,16 +4,16 @@
 # version
 %define package_name aliphysics-an
 
-%define alice_package_version 20150428
+%define alice_package_version 20150723
 %define alice_aliroot_post_version 0
 %define	alice_fedora_rev 0
 #deps versions
-%define aliroot_ver v5.06.14
+%define aliroot_ver v5.06.34
 %define aliroot_rev 0
 %define aliroot_fedora_rev 0
 
 #root  versions
-%define root_ver 5.34.30
+%define root_ver 5.34.32
 %define root_rev 0
 %define root_fedora_rev 0
 
@@ -71,10 +71,15 @@ AliPhysics for ALICE
 export ALIPHYSICS_ROOT="%{_builddir}/%{alice_name}-%{alice_package_version}/"
 
 cd $ALIPHYSICS_ROOT
-sed -i 's/include(CheckGitVersion)/#include(CheckGitVersion)/g' CMakeLists.txt 
+sed -i 's/include(CheckGitVersion)/#include(CheckGitVersion)/g' CMakeLists.txt
+
+#%if 0%{?fedora} >= 22
+#CPP_TMP_EXTRA='-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-Wno-return-local-addr"'
+#%endif
+
 mkdir build
 cd build
-cmake -DROOTSYS=%{rootsys_dir} -DALIEN=%{rootsys_dir} -DALIROOT=%{aliroot_dir} -DCMAKE_INSTALL_PREFIX=%{alice_prefix} $ALIPHYSICS_ROOT
+cmake -DROOTSYS=%{rootsys_dir} -DALIEN=%{rootsys_dir} -DALIROOT=%{aliroot_dir} -DCMAKE_INSTALL_PREFIX=%{alice_prefix} $CPP_TMP_EXTRA $ALIPHYSICS_ROOT
 mkdir version
 cat > version/ARVersion.h <<EOF
 #ifndef ALIPHYSICS_ARVersion
