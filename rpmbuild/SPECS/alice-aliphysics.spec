@@ -4,11 +4,11 @@
 # version
 %define package_name aliphysics-an
 
-%define alice_package_version 20150723
+%define alice_package_version 20151117
 %define alice_aliroot_post_version 0
 %define	alice_fedora_rev 0
 #deps versions
-%define aliroot_ver v5.06.34
+%define aliroot_ver v5.07.09
 %define aliroot_rev 0
 %define aliroot_fedora_rev 0
 

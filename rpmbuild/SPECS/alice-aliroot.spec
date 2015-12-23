@@ -4,7 +4,7 @@
 # version
 %define package_name aliroot
 
-%define alice_package_version v5.06.34
+%define alice_package_version v5.07.09
 %define alice_aliroot_post_version 0
 %define	alice_fedora_rev 0
 #deps versions
